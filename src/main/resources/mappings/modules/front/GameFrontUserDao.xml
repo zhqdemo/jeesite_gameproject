@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.modules.front.dao.GameFrontUserDao">
+    
+	<sql id="gameFrontUserColumns">
+		a.id AS "id",
+		a.account AS "account",
+		a.password AS "password",
+		a.email AS "email",
+		a.telphone AS "telphone",
+		a.idcard AS "idcard",
+		a.state AS "state",
+		a.img AS "img",
+		a.last_logintime AS "lastLogintime",
+		a.last_loginaddress AS "lastLoginaddress",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="gameFrontUserJoins">
+	</sql>
+    
+	<select id="get" resultType="GameFrontUser">
+		SELECT 
+			<include refid="gameFrontUserColumns"/>
+		FROM game_front_user a
+		<include refid="gameFrontUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="GameFrontUser">
+		SELECT 
+			<include refid="gameFrontUserColumns"/>
+		FROM game_front_user a
+		<include refid="gameFrontUserJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="account != null and account != ''">
+				AND a.account LIKE 
+					<if test="dbName == 'oracle'">'%'||#{account}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{account}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{account},'%')</if>
+			</if>
+			<if test="state != null and state != ''">
+				AND a.state = #{state}
+			</if>
+			<if test="beginLastLogintime != null and endLastLogintime != null and beginLastLogintime != '' and endLastLogintime != ''">
+				AND a.last_logintime BETWEEN #{beginLastLogintime} AND #{endLastLogintime}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="GameFrontUser">
+		SELECT 
+			<include refid="gameFrontUserColumns"/>
+		FROM game_front_user a
+		<include refid="gameFrontUserJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO game_front_user(
+			account,
+			password,
+			email,
+			telphone,
+			idcard,
+			state,
+			img,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{account},
+			#{password},
+			#{email},
+			#{telphone},
+			#{idcard},
+			#{state},
+			#{img},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE game_front_user SET 	
+			account = #{account},
+			password = #{password},
+			email = #{email},
+			telphone = #{telphone},
+			idcard = #{idcard},
+			state = #{state},
+			img = #{img},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE game_front_user SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

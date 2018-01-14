@@ -223,4 +223,12 @@ public class LoginController extends BaseController{
 		}
 		return loginFailNum >= 3;
 	}
+	/**
+	 * 退出登录
+	 */
+	@RequestMapping(value = "${adminPath}/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		UserUtils.getSubject().logout();
+		return "redirect:" + adminPath + "/login";
+	}
 }
