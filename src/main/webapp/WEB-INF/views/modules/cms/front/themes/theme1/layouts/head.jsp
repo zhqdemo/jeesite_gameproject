@@ -8,5 +8,3 @@
 <!--[if lte IE 6]><link href="${ctxStatic}/bootstrap/bsie/css/bootstrap-ie6.min.css" type="text/css" rel="stylesheet" />
 <script src="${ctxStatic}/bootstrap/bsie/js/bootstrap-ie.min.js" type="text/javascript"></script><![endif]-->
 <link href="${ctxStatic}/common/jeesite.min.css" type="text/css" rel="stylesheet" />
-<link href="${ctxStaticTheme}/style.css" type="text/css" rel="stylesheet" />
-<script src="${ctxStaticTheme}/script.js" type="text/javascript"></script>
