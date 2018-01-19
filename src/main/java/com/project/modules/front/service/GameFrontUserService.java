@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.project.modules.front.entity.GameFrontUser;
+import com.project.util.Error;
 import com.project.modules.front.dao.GameFrontUserDao;
 
 /**
@@ -42,6 +43,25 @@ public class GameFrontUserService extends CrudService<GameFrontUserDao, GameFron
 	@Transactional(readOnly = false)
 	public void delete(GameFrontUser gameFrontUser) {
 		super.delete(gameFrontUser);
+	}
+	public int login(String account,String password){
+		List<GameFrontUser> userlist = this.dao.getUserByAccount(account);
+		if(userlist==null||userlist.size()==0){
+			return Error.ERR_ACCOUNT_NOT_EXIST;
+		}
+		GameFrontUser user = userlist.get(0);
+		if(!user.getPassword().equals(password)){
+			return Error.ERR_PASSWORD_WRONG;
+		}		
+		return Error.ERR_SUCCESS;
+	}
+	public GameFrontUser getUserByAccount(String account){
+		List<GameFrontUser> userlist = this.dao.getUserByAccount(account);
+		if(userlist==null||userlist.size()==0){
+			return null;
+		}else{
+			return userlist.get(0);
+		}
 	}
 	
 }

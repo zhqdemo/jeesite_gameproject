@@ -15,9 +15,13 @@ public class Error {
 	public static final int ERR_TEL_HAD_REGISTED = 5;
 	/**密码错误*/
 	public static final int ERR_PASSWORD_WRONG = 6;
+	/**密码不一致*/
 	public static final int ERR_PWD_NOT_SAME = 7;
+	/**帐号不存在*/
 	public static final int ERR_ACCOUNT_NOT_EXIST = 8;
+	/**无权限*/
 	public static final int ERR_NO_POWER = 9;
+	/**未登录*/
 	public static final int ERR_UNLOGIN = 10;	
 	
 	public static String getErrorString(int nError)
