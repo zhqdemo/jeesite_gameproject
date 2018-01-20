@@ -6,6 +6,9 @@
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			$.validator.addMethod("samepass", function(value, element) {   
+				return value==$("#password").val();
+			}, "密码不一致");
 			//$("#name").focus();
 			$("#inputForm").validate({
 				submitHandler: function(form){
@@ -43,7 +46,14 @@
 		<div class="control-group">
 			<label class="control-label">密码：</label>
 			<div class="controls">
-				<form:input path="password" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
+				<form:input path="password" id="password" htmlEscape="false" maxlength="50" type="password" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">确认密码：</label>
+			<div class="controls">
+				<input id="password1" value="${gameFrontUser.password}" maxlength="50" type="password" class="input-xlarge required samepass"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

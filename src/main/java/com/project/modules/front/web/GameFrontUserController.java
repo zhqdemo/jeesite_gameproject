@@ -21,6 +21,8 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.project.modules.front.entity.GameFrontUser;
 import com.project.modules.front.service.GameFrontUserService;
+import com.project.util.Constants;
+import com.project.util.Encrypt;
 
 /**
  * 前端用户Controller
@@ -57,6 +59,7 @@ public class GameFrontUserController extends BaseController {
 	@RequiresPermissions("front:gameFrontUser:view")
 	@RequestMapping(value = "form")
 	public String form(GameFrontUser gameFrontUser, Model model) {
+		gameFrontUser.setPassword(Constants.UN_CHANGE_PASS);
 		model.addAttribute("gameFrontUser", gameFrontUser);
 		return "modules/front/gameFrontUserForm";
 	}
@@ -66,6 +69,15 @@ public class GameFrontUserController extends BaseController {
 	public String save(GameFrontUser gameFrontUser, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, gameFrontUser)){
 			return form(gameFrontUser, model);
+		}
+		if(gameFrontUser.getPassword()!=null){
+			if(gameFrontUser.getPassword().equals(Constants.UN_CHANGE_PASS)){
+				gameFrontUser.setPassword(null);
+			}else{
+				gameFrontUser.setPassword(Encrypt.md5(gameFrontUser.getPassword()));
+			}
+		}else{
+			gameFrontUser.setPassword(Encrypt.md5(""));
 		}
 		gameFrontUserService.save(gameFrontUser);
 		addMessage(redirectAttributes, "保存用户成功");
