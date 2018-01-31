@@ -16,7 +16,7 @@ import com.thinkgem.jeesite.test.dao.TestDataDao;
 /**
  * 单表生成Service
  * @author ThinkGem
- * @version 2015-04-06
+ * @version 2018-01-31
  */
 @Service
 @Transactional(readOnly = true)

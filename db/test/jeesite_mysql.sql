@@ -19,6 +19,7 @@ CREATE TABLE test_data
 	office_id varchar(64) COMMENT '归属部门',
 	area_id varchar(64) COMMENT '归属区域',
 	name varchar(100) COMMENT '名称',
+	img varchar(100) COMMENT '头像',
 	sex char(1) COMMENT '性别',
 	in_date date COMMENT '加入日期',
 	create_by varchar(64) NOT NULL COMMENT '创建者',

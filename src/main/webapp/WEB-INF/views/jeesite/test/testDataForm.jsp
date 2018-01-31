@@ -61,6 +61,12 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">头像：</label>
+			<div class="controls">
+				<zhq:imageupload name="img" id="${testData.id}" icon="${testData.img}"  cssClass="icon-vedio"></zhq:imageupload>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">性别：</label>
 			<div class="controls">
 				<form:radiobuttons path="sex" items="${fns:getDictList('sex')}" itemLabel="label" itemValue="value" htmlEscape="false" class=""/>

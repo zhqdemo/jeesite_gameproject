@@ -8,6 +8,7 @@
 		a.office_id AS "office.id",
 		a.area_id AS "area.id",
 		a.name AS "name",
+		a.img AS "img",
 		a.sex AS "sex",
 		a.in_date AS "inDate",
 		a.create_by AS "createBy.id",
@@ -92,13 +93,14 @@
 		</choose>
 	</select>
 	
-	<insert id="insert">
+	<insert id="insert" parameterType="TestData" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO test_data(
 			id,
 			user_id,
 			office_id,
 			area_id,
 			name,
+			img,
 			sex,
 			in_date,
 			create_by,
@@ -113,6 +115,7 @@
 			#{office.id},
 			#{area.id},
 			#{name},
+			#{img},
 			#{sex},
 			#{inDate},
 			#{createBy.id},
@@ -130,6 +133,7 @@
 			office_id = #{office.id},
 			area_id = #{area.id},
 			name = #{name},
+			img = #{img},
 			sex = #{sex},
 			in_date = #{inDate},
 			update_by = #{updateBy.id},

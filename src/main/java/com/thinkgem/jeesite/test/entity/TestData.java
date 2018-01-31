@@ -15,7 +15,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
 /**
  * 单表生成Entity
  * @author ThinkGem
- * @version 2015-04-06
+ * @version 2018-01-31
  */
 public class TestData extends DataEntity<TestData> {
 	
@@ -24,6 +24,7 @@ public class TestData extends DataEntity<TestData> {
 	private Office office;		// 归属部门
 	private Area area;		// 归属区域
 	private String name;		// 名称
+	private String img;		// 头像
 	private String sex;		// 性别
 	private Date inDate;		// 加入日期
 	private Date beginInDate;		// 开始 加入日期
@@ -68,6 +69,15 @@ public class TestData extends DataEntity<TestData> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Length(min=0, max=100, message="头像长度必须介于 0 和 100 之间")
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 	@Length(min=0, max=1, message="性别长度必须介于 0 和 1 之间")
