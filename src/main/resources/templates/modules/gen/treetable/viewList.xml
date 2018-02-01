@@ -123,6 +123,8 @@
 				{{dict.${c.simpleJavaField}}}
 			<#elseif c.showType == "userselect" || c.showType == "officeselect" || c.showType == "areaselect">
 				{{row.${c.javaFieldName}}}
+			<#elseif c.showType == "imageupload">
+				<img src="${"$"}{path}{{row.${c.javaFieldId}}}" onerror="this.src='${"$"}{ctxStatic}/images/default.png'"  class="icon-list"/>
 			<#else>
 				{{row.${c.javaFieldId}}}
 			</#if>

@@ -47,6 +47,12 @@
 			</div>
 		</div>
 		<div class="control-group">
+			<label class="control-label">配图：</label>
+			<div class="controls">
+				<zhq:imageupload name="img" id="${zhqCategory.id}" icon="${zhqCategory.img}"  cssClass="icon-vedio"></zhq:imageupload>
+			</div>
+		</div>
+		<div class="control-group">
 			<label class="control-label">识别码：</label>
 			<div class="controls">
 				<form:input path="code" htmlEscape="false" maxlength="20" class="input-xlarge "/>
@@ -64,13 +70,7 @@
 		<div class="control-group">
 			<label class="control-label">级别：</label>
 			<div class="controls">
-				<form:input path="level" htmlEscape="false" maxlength="1" class="input-xlarge  digits"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">配图：</label>
-			<div class="controls">
-				<zhq:imageupload name="img" id="${zhqCategory.id}" icon="${zhqCategory.img}"  cssClass="icon-vedio"></zhq:imageupload>
+				<form:input path="level" htmlEscape="false" maxlength="6" class="input-xlarge  digits"/>
 			</div>
 		</div>
 		<div class="control-group">

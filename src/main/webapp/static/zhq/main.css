@@ -32,4 +32,8 @@
 .click-icon{
 	cursor: pointer;
 }
+.icon-list{
+	width: 22px;
+	height: 22px;
+}
 /*end icon选择*/

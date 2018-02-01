@@ -5,10 +5,6 @@ package com.project.modules.zhq.dao;
 
 import com.thinkgem.jeesite.common.persistence.TreeDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
-
-import org.apache.ibatis.annotations.Select;
-
-import com.project.modules.front.entity.GameFrontUser;
 import com.project.modules.zhq.entity.ZhqCategory;
 
 /**
@@ -18,6 +14,5 @@ import com.project.modules.zhq.entity.ZhqCategory;
  */
 @MyBatisDao
 public interface ZhqCategoryDao extends TreeDao<ZhqCategory> {
-	@Select("select * from zhq_category where code=#{code} and del_flag = "+GameFrontUser.DEL_FLAG_NORMAL)
-	public ZhqCategory getByCode(String code);
+	
 }

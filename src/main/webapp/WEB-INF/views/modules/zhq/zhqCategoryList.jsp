@@ -61,11 +61,11 @@
 		<thead>
 			<tr>
 				<th>分类名字</th>
+				<th>配图</th>
 				<th>识别码</th>
 				<th>级别</th>
 				<th>排序</th>
 				<th>更新时间</th>
-				<th>备注信息</th>
 				<shiro:hasPermission name="zhq:zhqCategory:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -77,6 +77,9 @@
 				{{row.name}}
 			</a></td>
 			<td>
+				<img src="${path}{{row.img}}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
+			</td>
+			<td>
 				{{row.code}}
 			</td>
 			<td>
@@ -87,9 +90,6 @@
 			</td>
 			<td>
 				{{row.updateDate}}
-			</td>
-			<td>
-				{{row.remarks}}
 			</td>
 			<shiro:hasPermission name="zhq:zhqCategory:edit"><td>
    				<a href="${ctx}/zhq/zhqCategory/form?id={{row.id}}">修改</a>

@@ -26,8 +26,6 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.project.modules.zhq.entity.ZhqCategory;
 import com.project.modules.zhq.service.ZhqCategoryService;
-import com.project.util.Error;
-import com.project.util.ResultBean;
 
 /**
  * 分类信息Controller
@@ -122,41 +120,6 @@ public class ZhqCategoryController extends BaseController {
 			}
 		}
 		return mapList;
-	}
-	/**
-	 * 根据识别码获取分类子信息
-	 * @param code
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "getByCode")
-	public @ResponseBody ResultBean getByCode(
-			@RequestParam(required=false) String code,
-			HttpServletRequest request		
-			) {
-		ResultBean result = new ResultBean();
-		result.setData(this.zhqCategoryService.getByCode(code));
-		result.setCode(Error.ERR_SUCCESS);
-		return result;
-	}
-	/**
-	 * 根据父ID获取分类子信息
-	 * @param code
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "getByPid")
-	public @ResponseBody ResultBean getByPid(
-			@RequestParam(required=false) String pid,
-			HttpServletRequest request		
-			) {
-		ResultBean result = new ResultBean();
-		ZhqCategory temp1 = new ZhqCategory(pid);
-		ZhqCategory temp2 = new ZhqCategory();
-		temp2.setParent(temp1);
-		result.setData(this.zhqCategoryService.findList(temp2));
-		result.setCode(Error.ERR_SUCCESS);
-		return result;
 	}
 	
 }

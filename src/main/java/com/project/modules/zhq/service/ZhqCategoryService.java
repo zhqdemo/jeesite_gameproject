@@ -42,23 +42,5 @@ public class ZhqCategoryService extends TreeService<ZhqCategoryDao, ZhqCategory>
 	public void delete(ZhqCategory zhqCategory) {
 		super.delete(zhqCategory);
 	}
-	/**
-	 * 获取某识别码下的所有子类
-	 * @param code
-	 * @return
-	 */
-	public List<ZhqCategory> getByCode(String code){
-		//获取所有根分类
-		ZhqCategory temp1 = null;
-		if(code==null||code.equals("")){
-			temp1 = new ZhqCategory();
-			temp1.setId("0");
-		}else{
-			temp1 = this.dao.getByCode(code);
-		}
-		ZhqCategory temp2 = new ZhqCategory();
-		temp2.setParent(temp1);
-		return this.findList(temp2);
-	}
 	
 }

@@ -7,10 +7,10 @@
 		a.pid AS "parent.id",
 		a.path AS "parentIds",
 		a.name AS "name",
+		a.img AS "img",
 		a.code AS "code",
 		a.state AS "state",
 		a.level AS "level",
-		a.img AS "img",
 		a.conf_type AS "confType",
 		a.conf_value AS "confValue",
 		a.sort AS "sort",
@@ -73,13 +73,13 @@
 	<select id="findByParentIdsLike" resultType="ZhqCategory">
 		SELECT
 			a.id,
-			a.pid AS "parent.id",
-			a.path
+			a.parent_id AS "parent.id",
+			a.parent_ids
 		FROM zhq_category a
 		<include refid="zhqCategoryJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			AND a.path LIKE #{parentIds}
+			AND a.parent_ids LIKE #{parentIds}
 		</where>
 		ORDER BY a.sort ASC
 	</select>
@@ -89,10 +89,10 @@
 			pid,
 			path,
 			name,
+			img,
 			code,
 			state,
 			level,
-			img,
 			conf_type,
 			conf_value,
 			sort,
@@ -106,10 +106,10 @@
 			#{parent.id},
 			#{parentIds},
 			#{name},
+			#{img},
 			#{code},
 			#{state},
 			#{level},
-			#{img},
 			#{confType},
 			#{confValue},
 			#{sort},
@@ -127,10 +127,10 @@
 			pid = #{parent.id},
 			path = #{parentIds},
 			name = #{name},
+			img = #{img},
 			code = #{code},
 			state = #{state},
 			level = #{level},
-			img = #{img},
 			conf_type = #{confType},
 			conf_value = #{confValue},
 			sort = #{sort},
@@ -142,15 +142,15 @@
 	
 	<update id="updateParentIds">
 		UPDATE zhq_category SET 
-			pid = #{parent.id}, 
-			path = #{parentIds}
+			parent_id = #{parent.id}, 
+			parent_ids = #{parentIds}
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
 		UPDATE zhq_category SET 
 			del_flag = #{DEL_FLAG_DELETE}
-		WHERE id = #{id} OR path LIKE '%,'||#{id}||',%'
+		WHERE id = #{id} OR parent_ids LIKE '%,'||#{id}||',%'
 	</update>
 	
 </mapper>
