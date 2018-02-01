@@ -10,7 +10,7 @@
 <%@ attribute name="cssClass" type="java.lang.String" required="false" description="css样式"%>
 <input id="icon-name-${id }" name="${name }" type="hidden" value="${icon }"/>
 <input id="icon-upload-${id }" type="file" style="display: none"  onchange="icon_${id}_Selected();"/>
-<span id="icon-${id}" class="icon-select ${cssClass } ${cssClass}">
+<span id="icon-${id}" class="icon-select ${cssClass}">
 	<span class="oper-upload icon-plus" onclick="imgIcon_${id}(this)"></span>
 	<img id="icon-img-${id }" class="" alt="" src="${path}${icon }" onerror="this.src='${ctxStatic}/images/default.png'" />
 </span>

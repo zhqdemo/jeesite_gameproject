@@ -29,7 +29,7 @@
 			for (var i=0; i<rootIds.length; i++){
 				addRow("#treeTableList", tpl, data, rootIds[i], true);
 			}
-			$("#treeTable").treeTable({expandLevel : 5});
+			$("#treeTable").treeTable({expandLevel : 1});
 		});
 		function addRow(list, tpl, data, pid, root){
 			for (var i=0; i<data.length; i++){

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.modules.zhq.dao.ZhqCategoryDao">
+    
+	<sql id="zhqCategoryColumns">
+		a.id AS "id",
+		a.pid AS "parent.id",
+		a.path AS "parentIds",
+		a.name AS "name",
+		a.code AS "code",
+		a.state AS "state",
+		a.level AS "level",
+		a.img AS "img",
+		a.conf_type AS "confType",
+		a.conf_value AS "confValue",
+		a.sort AS "sort",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="zhqCategoryJoins">
+	</sql>
+    
+	<select id="get" resultType="ZhqCategory">
+		SELECT 
+			<include refid="zhqCategoryColumns"/>
+		FROM zhq_category a
+		<include refid="zhqCategoryJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ZhqCategory">
+		SELECT 
+			<include refid="zhqCategoryColumns"/>
+		FROM zhq_category a
+		<include refid="zhqCategoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="parent != null and parent.id != null and parent.id != ''">
+				AND a.pid = #{parent.id}
+			</if>
+			<if test="parentIds != null and parentIds != ''">
+				AND a.path = #{parentIds}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="code != null and code != ''">
+				AND a.code = #{code}
+			</if>
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<select id="findAllList" resultType="ZhqCategory">
+		SELECT 
+			<include refid="zhqCategoryColumns"/>
+		FROM zhq_category a
+		<include refid="zhqCategoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<select id="findByParentIdsLike" resultType="ZhqCategory">
+		SELECT
+			a.id,
+			a.pid AS "parent.id",
+			a.path
+		FROM zhq_category a
+		<include refid="zhqCategoryJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.path LIKE #{parentIds}
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO zhq_category(
+			pid,
+			path,
+			name,
+			code,
+			state,
+			level,
+			img,
+			conf_type,
+			conf_value,
+			sort,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{parent.id},
+			#{parentIds},
+			#{name},
+			#{code},
+			#{state},
+			#{level},
+			#{img},
+			#{confType},
+			#{confValue},
+			#{sort},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE zhq_category SET 	
+			pid = #{parent.id},
+			path = #{parentIds},
+			name = #{name},
+			code = #{code},
+			state = #{state},
+			level = #{level},
+			img = #{img},
+			conf_type = #{confType},
+			conf_value = #{confValue},
+			sort = #{sort},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateParentIds">
+		UPDATE zhq_category SET 
+			pid = #{parent.id}, 
+			path = #{parentIds}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE zhq_category SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id} OR path LIKE '%,'||#{id}||',%'
+	</update>
+	
+</mapper>
