@@ -73,13 +73,13 @@
 	<select id="findByParentIdsLike" resultType="ZhqCategory">
 		SELECT
 			a.id,
-			a.parent_id AS "parent.id",
-			a.parent_ids
+			a.pid AS "parent.id",
+			a.path
 		FROM zhq_category a
 		<include refid="zhqCategoryJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			AND a.parent_ids LIKE #{parentIds}
+			AND a.path LIKE #{parentIds}
 		</where>
 		ORDER BY a.sort ASC
 	</select>
@@ -142,15 +142,15 @@
 	
 	<update id="updateParentIds">
 		UPDATE zhq_category SET 
-			parent_id = #{parent.id}, 
-			parent_ids = #{parentIds}
+			pid = #{parent.id}, 
+			path = #{parentIds}
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
 		UPDATE zhq_category SET 
 			del_flag = #{DEL_FLAG_DELETE}
-		WHERE id = #{id} OR parent_ids LIKE '%,'||#{id}||',%'
+		WHERE id = #{id} OR path LIKE '%,'||#{id}||',%'
 	</update>
 	
 </mapper>
