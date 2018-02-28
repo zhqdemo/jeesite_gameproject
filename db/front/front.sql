@@ -14,6 +14,8 @@ CREATE TABLE game_front_user
 	ID bigint NOT NULL AUTO_INCREMENT,
 	-- 帐号
 	account varchar(50) NOT NULL COMMENT '帐号',
+	-- 用户名称
+	username varchar(60) DEFAULT '路人甲' COMMENT '用户名称',
 	-- 密码
 	password varchar(50) NOT NULL COMMENT '密码',
 	-- 邮箱

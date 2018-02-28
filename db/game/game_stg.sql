@@ -4,10 +4,13 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS game_gift_config;
 DROP TABLE IF EXISTS game_gift_record;
+DROP TABLE IF EXISTS game_log;
 DROP TABLE IF EXISTS game_part;
 DROP TABLE IF EXISTS game_part_val;
 DROP TABLE IF EXISTS game_player_part;
+DROP TABLE IF EXISTS game_role_bag;
 DROP TABLE IF EXISTS game_stg_user;
+DROP TABLE IF EXISTS game_user_bag;
 DROP TABLE IF EXISTS game_user_part;
 DROP TABLE IF EXISTS game_user_part_val;
 DROP TABLE IF EXISTS game_user_player;
@@ -28,6 +31,35 @@ CREATE TABLE game_gift_config
 CREATE TABLE game_gift_record
 (
 	id bigint NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (id)
+);
+
+
+CREATE TABLE game_log
+(
+	id bigint NOT NULL AUTO_INCREMENT,
+	-- 帐号
+	account varchar(30) COMMENT '帐号',
+	-- 操作类型
+	opertype smallint COMMENT '操作类型',
+	-- 受影响表
+	affect_table varchar(50) COMMENT '受影响表',
+	-- 受影响ID
+	affect_id bigint COMMENT '受影响ID',
+	-- 操作内容
+	content varchar(1000) COMMENT '操作内容',
+	-- 创建者
+	create_by varchar(64) NOT NULL COMMENT '创建者',
+	-- 创建时间
+	create_date datetime NOT NULL COMMENT '创建时间',
+	-- 更新者
+	update_by varchar(64) NOT NULL COMMENT '更新者',
+	-- 更新时间
+	update_date datetime NOT NULL COMMENT '更新时间',
+	-- 备注信息
+	remarks varchar(255) COMMENT '备注信息',
+	-- 删除标记（0：正常；1：删除）
+	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记（0：正常；1：删除）',
 	PRIMARY KEY (id)
 );
 
@@ -57,6 +89,8 @@ CREATE TABLE game_part
 	star int DEFAULT 0 COMMENT '星级',
 	-- 配图
 	img varchar(200) COMMENT '配图',
+	-- 最大堆数量
+	max_amount bigint DEFAULT 0 COMMENT '最大堆数量',
 	-- 创建者
 	create_by varchar(64) NOT NULL COMMENT '创建者',
 	-- 创建时间
@@ -130,9 +164,19 @@ CREATE TABLE game_player_part
 );
 
 
+CREATE TABLE game_role_bag
+(
+	-- id
+	id bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+	PRIMARY KEY (id)
+);
+
+
 CREATE TABLE game_stg_user
 (
 	account varchar(50) NOT NULL,
+	-- 用户名称
+	username varchar(60) DEFAULT '路人甲' COMMENT '用户名称',
 	-- 状态
 	state smallint DEFAULT 0 COMMENT '状态',
 	-- 解封时间
@@ -158,6 +202,22 @@ CREATE TABLE game_stg_user
 	-- 删除标记（0：正常；1：删除）
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记（0：正常；1：删除）',
 	PRIMARY KEY (account)
+);
+
+
+CREATE TABLE game_user_bag
+(
+	-- ID
+	id bigint NOT NULL AUTO_INCREMENT COMMENT 'ID',
+	-- 账号
+	account varchar(30) COMMENT '账号',
+	-- 位置
+	post bigint DEFAULT 0 COMMENT '位置',
+	-- 物品ID
+	part_id bigint COMMENT '物品ID',
+	-- 当前背包格状态
+	state smallint DEFAULT 0 COMMENT '当前背包格状态',
+	PRIMARY KEY (id)
 );
 
 
@@ -192,6 +252,10 @@ CREATE TABLE game_user_part
 	position smallint DEFAULT 0 COMMENT '物品位置',
 	-- 配图
 	img varchar(200) COMMENT '配图',
+	-- 物品数量
+	amount bigint DEFAULT 1 COMMENT '物品数量',
+	-- 物品模板ID
+	model_id bigint DEFAULT 0 COMMENT '物品模板ID',
 	-- 创建者
 	create_by varchar(64) NOT NULL COMMENT '创建者',
 	-- 创建时间
