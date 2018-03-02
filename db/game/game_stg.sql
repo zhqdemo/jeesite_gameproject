@@ -49,13 +49,13 @@ CREATE TABLE game_log
 	-- 操作内容
 	content varchar(1000) COMMENT '操作内容',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -92,13 +92,13 @@ CREATE TABLE game_part
 	-- 最大堆数量
 	max_amount bigint DEFAULT 0 COMMENT '最大堆数量',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -121,14 +121,20 @@ CREATE TABLE game_part_val
 	part_id bigint DEFAULT 0 COMMENT '物品ID',
 	-- 内容
 	content varchar(500) COMMENT '内容',
+	-- 最小值
+	min_val bigint DEFAULT 0 COMMENT '最小值',
+	-- 最大值
+	max_val bigint DEFAULT 0 COMMENT '最大值',
+	-- 取值类型
+	val_type smallint DEFAULT 0 COMMENT '取值类型',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -149,13 +155,13 @@ CREATE TABLE game_player_part
 	-- 配图
 	img varchar(200) COMMENT '配图',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -177,6 +183,8 @@ CREATE TABLE game_stg_user
 	account varchar(50) NOT NULL,
 	-- 用户名称
 	username varchar(60) DEFAULT '路人甲' COMMENT '用户名称',
+	-- 用户头像
+	img varchar(200) COMMENT '用户头像',
 	-- 状态
 	state smallint DEFAULT 0 COMMENT '状态',
 	-- 解封时间
@@ -190,13 +198,13 @@ CREATE TABLE game_stg_user
 	-- 计费方式
 	charge_mode smallint DEFAULT 0 COMMENT '计费方式',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -257,13 +265,13 @@ CREATE TABLE game_user_part
 	-- 物品模板ID
 	model_id bigint DEFAULT 0 COMMENT '物品模板ID',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -284,6 +292,12 @@ CREATE TABLE game_user_part_val
 	val bigint DEFAULT 0 COMMENT '值',
 	-- 物品ID
 	part_id bigint DEFAULT 0 COMMENT '物品ID',
+	-- 最小值
+	min_val bigint DEFAULT 0 COMMENT '最小值',
+	-- 最大值
+	max_val bigint DEFAULT 0 COMMENT '最大值',
+	-- 取值类型
+	val_type smallint DEFAULT 0 COMMENT '取值类型',
 	PRIMARY KEY (id)
 );
 
@@ -298,13 +312,13 @@ CREATE TABLE game_user_player
 	-- 配图
 	img varchar(200) COMMENT '配图',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
@@ -338,13 +352,13 @@ CREATE TABLE zhq_category
 	-- 排序
 	sort int(10) COMMENT '排序',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）

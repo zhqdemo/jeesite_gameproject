@@ -33,13 +33,13 @@ CREATE TABLE game_front_user
 	-- 最后登录地点
 	last_loginaddress varchar(20) COMMENT '最后登录地点',
 	-- 创建者
-	create_by varchar(64) NOT NULL COMMENT '创建者',
+	create_by varchar(64) DEFAULT '0' NOT NULL COMMENT '创建者',
 	-- 创建时间
-	create_date datetime NOT NULL COMMENT '创建时间',
+	create_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '创建时间',
 	-- 更新者
-	update_by varchar(64) NOT NULL COMMENT '更新者',
+	update_by varchar(64) DEFAULT '0' NOT NULL COMMENT '更新者',
 	-- 更新时间
-	update_date datetime NOT NULL COMMENT '更新时间',
+	update_date datetime DEFAULT '1988-02-18 17:00:00' NOT NULL COMMENT '更新时间',
 	-- 备注信息
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
