@@ -15,7 +15,7 @@ import com.project.modules.front.entity.GameFrontUser;
 /**
  * 前端用户DAO接口
  * @author 张青
- * @version 2018-01-14
+ * @version 2018-03-06
  */
 @MyBatisDao
 public interface GameFrontUserDao extends CrudDao<GameFrontUser> {

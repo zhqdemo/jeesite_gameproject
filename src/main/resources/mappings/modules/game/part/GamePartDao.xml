@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.modules.game.dao.part.GamePartDao">
+    
+	<sql id="gamePartColumns">
+		a.id AS "id",
+		a.part_name AS "partName",
+		a.part_type AS "partType",
+		a.part_state AS "partState",
+		a.content AS "content",
+		a.val AS "val",
+		a.min_val AS "minVal",
+		a.max_val AS "maxVal",
+		a.val_type AS "valType",
+		a.level AS "level",
+		a.star AS "star",
+		a.img AS "img",
+		a.max_amount AS "maxAmount",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="gamePartJoins">
+	</sql>
+    
+	<select id="get" resultType="GamePart">
+		SELECT 
+			<include refid="gamePartColumns"/>
+		FROM game_part a
+		<include refid="gamePartJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="GamePart">
+		SELECT 
+			<include refid="gamePartColumns"/>
+		FROM game_part a
+		<include refid="gamePartJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="GamePart">
+		SELECT 
+			<include refid="gamePartColumns"/>
+		FROM game_part a
+		<include refid="gamePartJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" parameterType="GamePart" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO game_part(
+			part_name,
+			part_type,
+			part_state,
+			content,
+			val,
+			min_val,
+			max_val,
+			val_type,
+			level,
+			star,
+			img,
+			max_amount,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{partName},
+			#{partType},
+			#{partState},
+			#{content},
+			#{val},
+			#{minVal},
+			#{maxVal},
+			#{valType},
+			#{level},
+			#{star},
+			#{img},
+			#{maxAmount},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE game_part SET 	
+			part_name = #{partName},
+			part_type = #{partType},
+			part_state = #{partState},
+			content = #{content},
+			val = #{val},
+			min_val = #{minVal},
+			max_val = #{maxVal},
+			val_type = #{valType},
+			level = #{level},
+			star = #{star},
+			img = #{img},
+			max_amount = #{maxAmount},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE game_part SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

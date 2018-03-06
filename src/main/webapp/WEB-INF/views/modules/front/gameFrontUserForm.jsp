@@ -2,13 +2,10 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>用户管理</title>
+	<title>前端用户管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$.validator.addMethod("samepass", function(value, element) {   
-				return value==$("#password").val();
-			}, "密码不一致");
 			//$("#name").focus();
 			$("#inputForm").validate({
 				submitHandler: function(form){
@@ -30,8 +27,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/front/gameFrontUser/">用户列表</a></li>
-		<li class="active"><a href="${ctx}/front/gameFrontUser/form?id=${gameFrontUser.id}">用户<shiro:hasPermission name="front:gameFrontUser:edit">${not empty gameFrontUser.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="front:gameFrontUser:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/front/gameFrontUser/">前端用户列表</a></li>
+		<li class="active"><a href="${ctx}/front/gameFrontUser/form?id=${gameFrontUser.id}">前端用户<shiro:hasPermission name="front:gameFrontUser:edit">${not empty gameFrontUser.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="front:gameFrontUser:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="gameFrontUser" action="${ctx}/front/gameFrontUser/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
@@ -44,29 +41,34 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">密码：</label>
+			<label class="control-label">用户名称：</label>
 			<div class="controls">
-				<form:input path="password" id="password" htmlEscape="false" maxlength="50" type="password" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
+				<form:input path="username" htmlEscape="false" maxlength="60" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">确认密码：</label>
+			<label class="control-label">头像：</label>
 			<div class="controls">
-				<input id="password1" value="${gameFrontUser.password}" maxlength="50" type="password" class="input-xlarge required samepass"/>
+				<zhq:imageupload name="img" id="${gameFrontUser.id}" icon="${gameFrontUser.img}"  cssClass="icon-vedio"></zhq:imageupload>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">密码：</label>
+			<div class="controls">
+				<form:input path="password" htmlEscape="false" maxlength="50" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">邮箱：</label>
 			<div class="controls">
-				<form:input path="email" htmlEscape="false" maxlength="50" class="input-xlarge email"/>
+				<form:input path="email" htmlEscape="false" maxlength="50" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">电话：</label>
 			<div class="controls">
-				<form:input path="telphone" htmlEscape="false" maxlength="11" class="input-xlarge"/>
+				<form:input path="telphone" htmlEscape="false" maxlength="50" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -86,10 +88,17 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">头像：</label>
+			<label class="control-label">最后登录时间：</label>
 			<div class="controls">
-				<form:hidden id="img" path="img" htmlEscape="false" maxlength="1000" class="input-xlarge"/>
-				<sys:ckfinder input="img" type="files" uploadPath="/front/gameFrontUser" selectMultiple="true"/>
+				<input name="lastLogintime" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
+					value="${gameFrontUser.lastLogintime}"
+					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">最后登录地点：</label>
+			<div class="controls">
+				<form:input path="lastLoginaddress" htmlEscape="false" maxlength="20" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">

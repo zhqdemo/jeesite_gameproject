@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.modules.game.dao.gameuser.GameUserPlayerDao">
+    
+	<sql id="gameUserPlayerColumns">
+		a.id AS "id",
+		a.account AS "gameStgUser.account",
+		a.player_name AS "playerName",
+		a.img AS "img",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="gameUserPlayerJoins">
+		LEFT JOIN game_stg_user b ON b.id = a.account
+	</sql>
+    
+	<select id="get" resultType="GameUserPlayer">
+		SELECT 
+			<include refid="gameUserPlayerColumns"/>
+		FROM game_user_player a
+		<include refid="gameUserPlayerJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="GameUserPlayer">
+		SELECT 
+			<include refid="gameUserPlayerColumns"/>
+		FROM game_user_player a
+		<include refid="gameUserPlayerJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="gameStgUser != null and gameStgUser.account != null and gameStgUser.account != ''">
+				AND a.account = #{gameStgUser.account}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="GameUserPlayer">
+		SELECT 
+			<include refid="gameUserPlayerColumns"/>
+		FROM game_user_player a
+		<include refid="gameUserPlayerJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" parameterType="GameUserPlayer" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO game_user_player(
+			account,
+			player_name,
+			img,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{gameStgUser.account},
+			#{playerName},
+			#{img},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE game_user_player SET 	
+			account = #{gameStgUser.account},
+			player_name = #{playerName},
+			img = #{img},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE game_user_player SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE account = #{gameStgUser.account}
+			</otherwise>
+		</choose>
+	</update>
+	
+</mapper>

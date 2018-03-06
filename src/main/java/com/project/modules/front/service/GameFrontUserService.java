@@ -17,7 +17,7 @@ import com.project.modules.front.dao.GameFrontUserDao;
 /**
  * 前端用户Service
  * @author 张青
- * @version 2018-01-14
+ * @version 2018-03-06
  */
 @Service
 @Transactional(readOnly = true)
@@ -37,6 +37,12 @@ public class GameFrontUserService extends CrudService<GameFrontUserDao, GameFron
 	
 	@Transactional(readOnly = false)
 	public void save(GameFrontUser gameFrontUser) {
+		if(gameFrontUser.getId()!=null){
+			GameFrontUser temp = this.get(new GameFrontUser(gameFrontUser.getId()));
+			if(gameFrontUser.getPassword()==null){
+				gameFrontUser.setPassword(temp.getPassword());
+			}
+		}
 		super.save(gameFrontUser);
 	}
 	

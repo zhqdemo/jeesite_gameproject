@@ -180,6 +180,8 @@ CREATE TABLE game_role_bag
 
 CREATE TABLE game_stg_user
 (
+	-- id
+	id bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
 	account varchar(50) NOT NULL,
 	-- 用户名称
 	username varchar(60) DEFAULT '路人甲' COMMENT '用户名称',
@@ -209,7 +211,7 @@ CREATE TABLE game_stg_user
 	remarks varchar(255) COMMENT '备注信息',
 	-- 删除标记（0：正常；1：删除）
 	del_flag char(1) DEFAULT '0' NOT NULL COMMENT '删除标记（0：正常；1：删除）',
-	PRIMARY KEY (account)
+	PRIMARY KEY (id)
 );
 
 

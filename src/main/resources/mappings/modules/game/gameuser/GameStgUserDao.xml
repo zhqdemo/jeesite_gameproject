@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.modules.front.dao.GameFrontUserDao">
+<mapper namespace="com.project.modules.game.dao.gameuser.GameStgUserDao">
     
-	<sql id="gameFrontUserColumns">
+	<sql id="gameStgUserColumns">
 		a.id AS "id",
 		a.account AS "account",
 		a.username AS "username",
 		a.img AS "img",
-		a.password AS "password",
-		a.email AS "email",
-		a.telphone AS "telphone",
-		a.idcard AS "idcard",
 		a.state AS "state",
-		a.last_logintime AS "lastLogintime",
-		a.last_loginaddress AS "lastLoginaddress",
+		a.unban_time AS "unbanTime",
+		a.expire_time AS "expireTime",
+		a.integral AS "integral",
+		a.residue AS "residue",
+		a.charge_mode AS "chargeMode",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -22,22 +21,22 @@
 		a.del_flag AS "delFlag"
 	</sql>
 	
-	<sql id="gameFrontUserJoins">
+	<sql id="gameStgUserJoins">
 	</sql>
     
-	<select id="get" resultType="GameFrontUser">
+	<select id="get" resultType="GameStgUser">
 		SELECT 
-			<include refid="gameFrontUserColumns"/>
-		FROM game_front_user a
-		<include refid="gameFrontUserJoins"/>
+			<include refid="gameStgUserColumns"/>
+		FROM game_stg_user a
+		<include refid="gameStgUserJoins"/>
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="GameFrontUser">
+	<select id="findList" resultType="GameStgUser">
 		SELECT 
-			<include refid="gameFrontUserColumns"/>
-		FROM game_front_user a
-		<include refid="gameFrontUserJoins"/>
+			<include refid="gameStgUserColumns"/>
+		FROM game_stg_user a
+		<include refid="gameStgUserJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 			<if test="account != null and account != ''">
@@ -52,15 +51,6 @@
 					<if test="dbName == 'mssql'">'%'+#{username}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{username},'%')</if>
 			</if>
-			<if test="idcard != null and idcard != ''">
-				AND a.idcard LIKE 
-					<if test="dbName == 'oracle'">'%'||#{idcard}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{idcard}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{idcard},'%')</if>
-			</if>
-			<if test="state != null and state != ''">
-				AND a.state = #{state}
-			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -72,11 +62,11 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="GameFrontUser">
+	<select id="findAllList" resultType="GameStgUser">
 		SELECT 
-			<include refid="gameFrontUserColumns"/>
-		FROM game_front_user a
-		<include refid="gameFrontUserJoins"/>
+			<include refid="gameStgUserColumns"/>
+		FROM game_stg_user a
+		<include refid="gameStgUserJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
@@ -90,64 +80,52 @@
 		</choose>
 	</select>
 	
-	<insert id="insert" parameterType="GameFrontUser" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO game_front_user(
+	<insert id="insert" parameterType="GameStgUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO game_stg_user(
 			account,
 			username,
 			img,
-			password,
-			email,
-			telphone,
-			idcard,
 			state,
-			last_logintime,
-			last_loginaddress,
+			unban_time,
+			expire_time,
+			integral,
 			create_by,
 			create_date,
 			update_by,
 			update_date,
-			remarks,
 			del_flag
 		) VALUES (
 			#{account},
 			#{username},
 			#{img},
-			#{password},
-			#{email},
-			#{telphone},
-			#{idcard},
 			#{state},
-			#{lastLogintime},
-			#{lastLoginaddress},
+			#{unbanTime},
+			#{expireTime},
+			#{integral},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
 			#{updateDate},
-			#{remarks},
 			#{delFlag}
 		)
 	</insert>
 	
 	<update id="update">
-		UPDATE game_front_user SET 	
+		UPDATE game_stg_user SET 	
 			account = #{account},
 			username = #{username},
 			img = #{img},
-			password = #{password},
-			email = #{email},
-			telphone = #{telphone},
-			idcard = #{idcard},
 			state = #{state},
-			last_logintime = #{lastLogintime},
-			last_loginaddress = #{lastLoginaddress},
+			unban_time = #{unbanTime},
+			expire_time = #{expireTime},
+			integral = #{integral},
 			update_by = #{updateBy.id},
-			update_date = #{updateDate},
-			remarks = #{remarks}
+			update_date = #{updateDate}
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
-		UPDATE game_front_user SET 
+		UPDATE game_stg_user SET 
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>

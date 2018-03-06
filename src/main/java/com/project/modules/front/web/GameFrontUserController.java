@@ -27,7 +27,7 @@ import com.project.util.Encrypt;
 /**
  * 前端用户Controller
  * @author 张青
- * @version 2018-01-14
+ * @version 2018-03-06
  */
 @Controller
 @RequestMapping(value = "${adminPath}/front/gameFrontUser")
@@ -80,7 +80,7 @@ public class GameFrontUserController extends BaseController {
 			gameFrontUser.setPassword(Encrypt.md5(""));
 		}
 		gameFrontUserService.save(gameFrontUser);
-		addMessage(redirectAttributes, "保存用户成功");
+		addMessage(redirectAttributes, "保存前端用户成功");
 		return "redirect:"+Global.getAdminPath()+"/front/gameFrontUser/?repage";
 	}
 	
@@ -88,7 +88,7 @@ public class GameFrontUserController extends BaseController {
 	@RequestMapping(value = "delete")
 	public String delete(GameFrontUser gameFrontUser, RedirectAttributes redirectAttributes) {
 		gameFrontUserService.delete(gameFrontUser);
-		addMessage(redirectAttributes, "删除用户成功");
+		addMessage(redirectAttributes, "删除前端用户成功");
 		return "redirect:"+Global.getAdminPath()+"/front/gameFrontUser/?repage";
 	}
 
