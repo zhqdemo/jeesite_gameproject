@@ -99,7 +99,7 @@
 				<#elseif c.showType == "userselect" || c.showType == "officeselect" || c.showType == "areaselect">
 					${"$"}{${className}.${c.javaFieldName}}
 				<#elseif c.showType == "imageupload">
-					<img src="${"$"}{path}${"$"}{${className}.${c.javaFieldId}}" onerror="this.src='${"$"}{ctxStatic}/images/default.png'"  class="icon-list"/>
+					<img src="${"$"}{resourcepath}${"$"}{${className}.${c.javaFieldId}}" onerror="this.src='${"$"}{ctxStatic}/images/default.png'"  class="icon-list"/>
 				<#else>
 					${"$"}{${className}.${c.javaFieldId}}
 				</#if>

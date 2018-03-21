@@ -77,7 +77,7 @@
 				{{row.name}}
 			</a></td>
 			<td>
-				<img src="${path}{{row.img}}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
+				<img src="${resourcepath}{{row.img}}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
 			</td>
 			<td>
 				{{row.code}}

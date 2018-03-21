@@ -69,7 +69,7 @@
 					${gameFrontUser.username}
 				</td>
 				<td>
-					<img src="${path}${gameFrontUser.img}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
+					<img src="${resourcepath}${gameFrontUser.img}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
 				</td>
 				<td>
 					${gameFrontUser.telphone}

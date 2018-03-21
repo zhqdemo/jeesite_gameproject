@@ -42,12 +42,41 @@ public class PropertiesLoader {
 	 * 取出Property，但以System的Property优先,取不到返回空字符串.
 	 */
 	private String getValue(String key) {
-		String systemProperty = System.getProperty(key);
+		/*String systemProperty = System.getProperty(key);
 		if (systemProperty != null) {
 			return systemProperty;
 		}
 		if (properties.containsKey(key)) {
 	        return properties.getProperty(key);
+	    }
+	    return "";*/
+		//String systemProperty = System.getProperty(key);
+		String systemProperty = null;
+		try {
+			if(System.getProperty(key)!=null){
+				systemProperty = new String(System.getProperty(key).getBytes("ISO-8859-1"),"UTF-8");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (systemProperty != null) {
+			return systemProperty;
+		}
+		if (properties.containsKey(key)) {
+			String result = null;
+			try {
+				if(properties.getProperty(key)!=null){
+					result = new String(properties.getProperty(key).getBytes("ISO-8859-1"),"UTF-8");
+				}else{
+					//result = "";
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        //return properties.getProperty(key);
+	        return result;
 	    }
 	    return "";
 	}

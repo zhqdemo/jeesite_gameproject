@@ -55,7 +55,7 @@
 					${gameStgUser.username}
 				</td>
 				<td>
-					<img src="${path}${gameStgUser.img}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
+					<img src="${resourcepath}${gameStgUser.img}" onerror="this.src='${ctxStatic}/images/default.png'"  class="icon-list"/>
 				</td>
 				<shiro:hasPermission name="game:gameuser:gameStgUser:edit"><td>
     				<a href="${ctx}/game/gameuser/gameStgUser/form?id=${gameStgUser.id}">修改</a>
